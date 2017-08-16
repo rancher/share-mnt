@@ -16,6 +16,6 @@ if echo $TAG | grep -q dirty; then
     TAG=dev
 fi
 
-tar cvzf share-mnt-`uname -s`-`uname -m`.tar.gz -C ../bin share-mnt
+tar cvzfh share-mnt-`uname -s`-`uname -m`.tar.gz -C ../bin share-mnt
 
-echo Created share-mnt.tar.gz
+echo Created share-mnt-`uname -s`-`uname -m`.tar.gz
