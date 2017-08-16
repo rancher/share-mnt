@@ -7,4 +7,6 @@ cd $(dirname $0)/..
 
 mkdir -p bin
 [ "$(uname)" != "Darwin" ] && LINKFLAGS="-linkmode external -extldflags -static -s"
-CGO_ENABLED=0 go build -ldflags "-X main.VERSION=$VERSION $LINKFLAGS -linkmode external -extldflags -static -s" -o bin/share-mnt
+CGO_ENABLED=0 go build -ldflags "-X main.VERSION=$VERSION $LINKFLAGS -linkmode external -extldflags -static -s" -o bin/share-mnt-`uname -s`-`uname -m`
+[ -L bin/share-mnt ] && unlink bin/share-mnt
+ln -s bin/share-mnt-`uname -s`-`uname -m` bin/share-mnt
