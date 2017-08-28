@@ -1,12 +1,12 @@
-FROM ubuntu:16.04
-# FROM arm=armhf/ubuntu:16.04
-# FROM ppc64le/ubuntu:16.04
+FROM zambon/ubuntu-multi:16.04
+# FROM arm=armhf/ubuntu:16.04 ppc64le=ppc64le/ubuntu:16.04
 
 ARG DAPPER_HOST_ARCH
 ENV HOST_ARCH=${DAPPER_HOST_ARCH} ARCH=${DAPPER_HOST_ARCH}
 
-RUN apt-get update && \
-    apt-get install -y gcc ca-certificates git wget curl vim less file && \
+RUN apt-get -q update && \
+    apt-get -qy install gcc ca-certificates git wget curl vim less file && \
+    rm -rf /var/lib/apt/lists/* && \
     rm -f /bin/sh && ln -s /bin/bash /bin/sh
 
 ENV GOLANG_ARCH_amd64=amd64 GOLANG_ARCH_arm=armv6l GOLANG_ARCH_ppc64le=ppc64le \
