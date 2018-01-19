@@ -25,12 +25,14 @@ const (
 
 var (
 	cgroupPattern = regexp.MustCompile("^.*/docker-([a-z0-9]+).scope$")
-	statePaths    = []string{
+	// Add the statepath as found on most OS's, and prefix with '/var' for Boot2Docker
+	statePaths = []string{
 		"/run/runc",
 		"/var/run/runc",
 		"/run/docker/execdriver/native",
 		"/var/run/docker/execdriver/native",
 		"/run/docker/runtime-runc/moby",
+		"/var/run/docker/runtime-runc/moby",
 	}
 )
 
