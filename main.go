@@ -33,6 +33,8 @@ var (
 		"/var/run/docker/execdriver/native",
 		"/run/docker/runtime-runc/moby",
 		"/var/run/docker/runtime-runc/moby",
+		"/run/docker/runtime-nvidia/moby",
+		"/var/run/docker/runtime-nvidia/moby",
 	}
 )
 
