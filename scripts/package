@@ -16,6 +16,10 @@ if echo $TAG | grep -q dirty; then
     TAG=dev
 fi
 
-tar cvzf share-mnt.tar.gz -C ../bin share-mnt
+if [ "${ARCH}" != "amd64" ]; then
+    tar cvzf share-mnt-${ARCH}.tar.gz -C ../bin share-mnt
+else
+    tar cvzf share-mnt.tar.gz -C ../bin share-mnt
+fi
 
 echo Created share-mnt.tar.gz
