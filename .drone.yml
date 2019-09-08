@@ -67,3 +67,38 @@ volumes:
   - name: docker
     host:
       path: /var/run/docker.sock 
+---
+kind: pipeline
+name: arm
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+  - name: build-arm
+    image: rancher/dapper:v0.4.1
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    commands:
+      - dapper ci
+  - name: github_binary_release_arm64
+    image: plugins/github-release
+    settings:
+      api_key:
+        from_secret: github_token
+      files:
+        - ./dist/artifacts/*
+    when:
+      instance:
+      - drone-publish.rancher.io
+      event:
+      - tag
+      refs:
+      - refs/head/master
+      - refs/tags/*
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock 
