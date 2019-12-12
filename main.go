@@ -19,11 +19,9 @@ import (
 	"github.com/docker/docker/pkg/mount"
 )
 
-const (
-	version = "0.0.0"
-)
-
 var (
+	// VERSION gets overridden at build time using -X main.VERSION=$VERSION
+	VERSION       = "dev"
 	cgroupPattern = regexp.MustCompile("^.*/docker-([a-z0-9]+).scope$")
 	// Add the statepath as found on most OS's, and prefix with '/var' for Boot2Docker
 	statePaths = []string{
@@ -40,7 +38,7 @@ var (
 
 func main() {
 	app := cli.NewApp()
-	app.Version = version
+	app.Version = VERSION
 	app.Flags = []cli.Flag{
 		cli.BoolFlag{
 			Name: "stage2",
