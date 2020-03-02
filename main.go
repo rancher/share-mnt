@@ -76,6 +76,21 @@ type Config struct {
 }
 
 func stage2(cli *cli.Context) (int, error) {
+	mounts, err := mount.GetMounts()
+	if err != nil {
+		return -1, err
+	}
+	for _, m := range mounts {
+		if m.Mountpoint == "/" {
+			for _, o := range strings.Fields(m.Optional) {
+				if strings.HasPrefix(o, "shared") {
+					logrus.Info("Root Directory is shared, skipping stage2")
+					return 0, nil
+				}
+			}
+		}
+	}
+
 	for _, val := range cli.Args() {
 		if val == "--" {
 			break
